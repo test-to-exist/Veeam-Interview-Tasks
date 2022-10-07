@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumTask", "SeleniumTask\SeleniumTask.csproj", "{F78744A8-6918-4E2B-8E03-A85D56A7B7FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77758442-A089-412F-A9CA-03AFED30D23D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F78744A8-6918-4E2B-8E03-A85D56A7B7FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F78744A8-6918-4E2B-8E03-A85D56A7B7FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F78744A8-6918-4E2B-8E03-A85D56A7B7FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F78744A8-6918-4E2B-8E03-A85D56A7B7FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B254D570-DAE3-42E1-AC4C-DE15EC5BE80B}
+	EndGlobalSection
+EndGlobal
