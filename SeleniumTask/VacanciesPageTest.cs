@@ -33,7 +33,7 @@ namespace SeleniumTask
             vacanciesPage.ClickEnglishLanguageOption();
             vacanciesPage.GetLanguagesComboBoxWithEnglishPicked().Click();
             int openedVacanciesCount = vacanciesPage.GetAllOpenedVacancies().Count();
-            int expectedVacanciesCount = 11; // This could be a param
+            int expectedVacanciesCount = 12; // This could be a param
             Assert.That(openedVacanciesCount == expectedVacanciesCount);   
         }
     }
