@@ -1,17 +1,18 @@
 using OpenQA.Selenium;
 
-namespace SeleniumTask
+namespace SeleniumTask.pages
 {
     public class CookiesModalPage : BasePage
     {
+        private readonly By _rejectCookies = By.Id("cookiescript_reject");
 
         public CookiesModalPage(IWebDriver driver) : base(driver)
         {
         }
 
-        public void RejectCookies()
+        public void ClickRejectCookies()
         {
-            GetElement(By.Id("cookiescript_reject")).Click();
+            Click(_rejectCookies);
         }
     }
 }

@@ -1,43 +1,49 @@
 using System.Linq;
 using OpenQA.Selenium;
-using System.Collections.Generic;
 
-namespace SeleniumTask
+namespace SeleniumTask.pages
 {
     public class VacanciesPage : BasePage
     {
+        private readonly By _departmentsComboBox = By.XPath("//button[contains(text(),'All departments')]");
+        private readonly By _researchAndDevelopmentOption = By.XPath("//a[contains(text(),'Research & Development')]");
+        private readonly By _languagesComboBox = By.XPath("//button[contains(text(),'All languages')]");
+        private readonly By _englishLanguageOption = By.XPath("//label[contains(text(),'English')]");
+        private readonly By _languagesWithEnglishComboBox = By.XPath("//button[contains(text(),'English')]");
+        private readonly By _vacanciesList = By.XPath("//a[contains(@href,'/vacancies/development')]");
+
         public VacanciesPage(IWebDriver driver) : base(driver)
         {
         }
 
-        public IWebElement GetAllDepartmentsComboBox()
+        public void ClickAllDepartmentsComboBox()
         {
-            return GetElement(By.XPath("//button[contains(text(),'All departments')]"));
+            Click(_departmentsComboBox);
         }
 
         public void ClickResearchAndDevelopmentDepartmentOption()
         {
-            GetElement(By.XPath("//a[contains(text(),'Research & Development')]")).Click();
+            Click(_researchAndDevelopmentOption);
         }
 
-        public IWebElement GetLanguagesComboBox()
+        public void ClickLanguagesComboBox()
         {
-            return GetElement(By.XPath("//button[contains(text(),'All languages')]"));
+            Click(_languagesComboBox);
         }
 
-        public IWebElement GetLanguagesComboBoxWithEnglishPicked()
+        public void ClickLanguagesComboBoxWithEnglishPicked()
         {
-            return GetElement(By.XPath("//button[contains(text(),'English')]"));
+            Click(_languagesWithEnglishComboBox);
         }
         public void ClickEnglishLanguageOption()
         {
-            GetElement(By.XPath("//label[contains(text(),'English')]")).Click();
+            Click(_englishLanguageOption);
         }
 
-        public IEnumerable<IWebElement> GetAllOpenedVacancies()
+        public int CountAllOpenedVacancies()
         {
-            return GetElements(By.XPath("//a[contains(@href,'/vacancies/development')]"))
-            .GroupBy(el => el.GetAttribute("href")).Select(grp => grp.First());
+            return GetElements(_vacanciesList)
+            .GroupBy(el => el.GetAttribute("href")).Select(grp => grp.First()).Count();
         }
     }
 }

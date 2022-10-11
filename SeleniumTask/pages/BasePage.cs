@@ -2,22 +2,24 @@ using System;
 using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumTask.util;
 using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
 
-namespace SeleniumTask
+namespace SeleniumTask.pages
 {
     public class BasePage
     {
         private readonly IWebDriver _driver;
-
+        private readonly int _defaultWaitForElement;
         protected BasePage(IWebDriver driver)
         {
             _driver = driver;
+            _defaultWaitForElement = Int32.Parse(Config.GetValue("defaultWaitForElement"));
         }
 
         protected void WaitUntilElementVisible(By by)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_defaultWaitForElement));
             wait.Until(ExpectedConditions.ElementToBeClickable(by));
         }
 
