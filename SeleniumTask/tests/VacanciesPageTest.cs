@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -10,10 +12,12 @@ namespace SeleniumTask.tests
     public class VacanciesPageTest
     {
         private WebDriver _driver;
+        private Dictionary<string, string> _testData;
 
         [SetUp]
         public void Setup()
         {
+            _testData = TestDataReadHelpers.GetGenericCsvRecords("VacanciesPageTest.csv");
             string[] driverOptions = Config.DriverOptions;
             ChromeOptions options = new ChromeOptions();
             foreach(var option in driverOptions) 
@@ -21,7 +25,7 @@ namespace SeleniumTask.tests
                 options.AddArgument(option);
             }
             _driver = new ChromeDriver(options);
-            _driver.Navigate().GoToUrl($"{Config.BaseUrl}/vacancies");
+            _driver.Navigate().GoToUrl($"{Config.BaseUrl}/{_testData["VacanciesPageRoute"]}");
         }
 
         [Test]
@@ -35,7 +39,7 @@ namespace SeleniumTask.tests
             vacanciesPage.ClickLanguagesComboBox();
             vacanciesPage.ClickEnglishLanguageOption();
             vacanciesPage.ClickLanguagesComboBoxWithEnglishPicked();
-            int expectedVacanciesCount = 12; // This could be a param
+            int expectedVacanciesCount = int.Parse(_testData["expectedVacanciesCount"]);
             Assert.That(vacanciesPage.CountAllOpenedVacancies() == expectedVacanciesCount);
         }
 
