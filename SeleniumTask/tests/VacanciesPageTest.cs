@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -20,7 +19,7 @@ namespace SeleniumTask.tests
             _testData = TestDataReadHelpers.GetGenericCsvRecords("VacanciesPageTest.csv");
             string[] driverOptions = Config.DriverOptions;
             ChromeOptions options = new ChromeOptions();
-            foreach(var option in driverOptions) 
+            foreach (var option in driverOptions)
             {
                 options.AddArgument(option);
             }
@@ -35,9 +34,9 @@ namespace SeleniumTask.tests
             cookiesModal.ClickRejectCookies();
             VacanciesPage vacanciesPage = new VacanciesPage(_driver);
             vacanciesPage.ClickAllDepartmentsComboBox();
-            vacanciesPage.ClickResearchAndDevelopmentDepartmentOption();
+            vacanciesPage.ChooseDepartmentOption(_testData["DepartmentsOptionText"]);
             vacanciesPage.ClickLanguagesComboBox();
-            vacanciesPage.ClickEnglishLanguageOption();
+            vacanciesPage.ChooseLanguageOption(_testData["LanguagesOptionText"]);
             vacanciesPage.ClickLanguagesComboBoxWithEnglishPicked();
             int expectedVacanciesCount = int.Parse(_testData["expectedVacanciesCount"]);
             Assert.That(vacanciesPage.CountAllOpenedVacancies() == expectedVacanciesCount);

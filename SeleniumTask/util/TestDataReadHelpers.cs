@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Microsoft.Extensions.Configuration;
-using NUnit.Framework;
 
 namespace SeleniumTask.util
 {

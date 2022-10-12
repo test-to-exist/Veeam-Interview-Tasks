@@ -5,13 +5,15 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        string processName = args.Length < 1 ? "notepad" : args[0];
+        TimeSpan timeToKill =
+            args.Length < 2 ? new TimeSpan(0, 0, 69) : new TimeSpan(0, 0, int.Parse(args[1])); // By default it should be in minutes
+        TimeSpan monitoringFrequency =
+            args.Length < 3 ? new TimeSpan(0, 0, 7) : new TimeSpan(0, 0, int.Parse(args[2])); // By default it should be in minutes
+
         List<string> log = new List<string>();
         DateTime start = DateTime.UtcNow, end = DateTime.UtcNow, monitoringFrequencyStart = DateTime.UtcNow;
-        TimeSpan timeToKill = new TimeSpan(0, 0, 69); // By default it should be in minutes
-        TimeSpan monitoringFrequency = new TimeSpan(0, 0, 7); // By default it should be in minutes
-        string processName = "notepad";
         Process[] processesList = new Process[0];
-
         bool appRunning = true;
         do
         {
@@ -44,7 +46,7 @@ internal class Program
                 if (runningProcess != null)
                 {
                     Console.WriteLine($"Killing process: {runningProcess.ProcessName}");
-                    log.Add($"Process: {runningProcess.ProcessName} killed at {DateTime.Now}");
+                    log.Add($"Process: {runningProcess.ProcessName} terminated at {DateTime.Now} Rest in Peace");
                     runningProcess.Kill();
                 }
                 start = DateTime.UtcNow;
