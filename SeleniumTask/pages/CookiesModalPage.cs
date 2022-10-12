@@ -1,4 +1,5 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 namespace SeleniumTask.pages
 {
@@ -12,6 +13,7 @@ namespace SeleniumTask.pages
 
         public void ClickRejectCookies()
         {
+            (new Actions(_driver)).MoveToElement(GetElement(_rejectCookies)).Perform();
             Click(_rejectCookies);
         }
     }

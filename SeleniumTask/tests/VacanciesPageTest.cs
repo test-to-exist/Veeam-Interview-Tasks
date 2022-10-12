@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using SeleniumTask.pages;
 using SeleniumTask.util;
 
@@ -18,12 +19,20 @@ namespace SeleniumTask.tests
         {
             _testData = TestDataReadHelpers.GetGenericCsvRecords("VacanciesPageTest.csv");
             string[] driverOptions = Config.DriverOptions;
-            ChromeOptions options = new ChromeOptions();
-            foreach (var option in driverOptions)
+            if (driverOptions !=null && driverOptions.Length > 0)
             {
-                options.AddArgument(option);
+                ChromeOptions options = new ChromeOptions();
+                foreach (var option in driverOptions)
+                {
+                    options.AddArgument(option);
+                }
+                _driver = new ChromeDriver(options);
             }
-            _driver = new ChromeDriver(options);
+            else
+            {
+                _driver = new ChromeDriver();
+            }
+            _driver.Manage().Window.Maximize();
             _driver.Navigate().GoToUrl($"{Config.BaseUrl}/{_testData["VacanciesPageRoute"]}");
         }
 

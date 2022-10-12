@@ -46,7 +46,7 @@ namespace SeleniumTask.pages
         {
             Click(_languagesWithEnglishComboBox);
         }
-
+        
         public void ChooseLanguageOption(string option)
         {
             Click(GetLanguageOptionSelector(option));

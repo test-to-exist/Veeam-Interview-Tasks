@@ -5,11 +5,12 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumTask.util;
 using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
 
+
 namespace SeleniumTask.pages
 {
     public class BasePage
     {
-        private readonly IWebDriver _driver;
+        protected readonly IWebDriver _driver;
         private readonly int _defaultWaitForElement;
         protected BasePage(IWebDriver driver)
         {
@@ -17,7 +18,7 @@ namespace SeleniumTask.pages
             _defaultWaitForElement = Int32.Parse(Config.GetValue("defaultWaitForElement"));
         }
 
-        protected void WaitUntilElementVisible(By by)
+        protected void WaitUntilElementClickable(By by)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(_defaultWaitForElement));
             wait.Until(ExpectedConditions.ElementToBeClickable(by));
@@ -25,24 +26,24 @@ namespace SeleniumTask.pages
 
         protected IWebElement GetElement(By by)
         {
-            WaitUntilElementVisible(by);
+            WaitUntilElementClickable(by);
             return _driver.FindElement(by);
         }
         protected ReadOnlyCollection<IWebElement> GetElements(By by)
         {
-            WaitUntilElementVisible(by);
+            WaitUntilElementClickable(by);
             return _driver.FindElements(by);
         }
 
         protected void Click(By by)
         {
-            WaitUntilElementVisible(by);
+            WaitUntilElementClickable(by);
             _driver.FindElement(by).Click();
         }
 
         protected void SendKeys(By by, string text)
         {
-            WaitUntilElementVisible(by);
+            WaitUntilElementClickable(by);
             _driver.FindElement(by).SendKeys(text);
         }
     }
