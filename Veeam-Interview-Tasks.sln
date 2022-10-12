@@ -8,9 +8,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77758442-A089-412F-A9CA-03AFED30D23D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Readme.md = Readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessMonitoringAppTask", "ProcessMonitoringAppTask\ProcessMonitoringAppTask.csproj", "{E7106990-991A-4A8D-9C5D-4E1B61A1935E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessMonitoringAppTask", "ProcessMonitoringAppTask\ProcessMonitoringAppTask.csproj", "{E7106990-991A-4A8D-9C5D-4E1B61A1935E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

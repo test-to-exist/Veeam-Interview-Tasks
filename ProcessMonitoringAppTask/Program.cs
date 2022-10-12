@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Management;
 
 internal class Program
 {
@@ -7,14 +8,16 @@ internal class Program
     {
         string processName = args.Length < 1 ? "notepad" : args[0];
         TimeSpan timeToKill =
-            args.Length < 2 ? new TimeSpan(0, 0, 69) : new TimeSpan(0, 0, int.Parse(args[1])); // By default it should be in minutes
+            args.Length < 2 ? new TimeSpan(0, 5, 0) : new TimeSpan(0, int.Parse(args[1]), 0);
         TimeSpan monitoringFrequency =
-            args.Length < 3 ? new TimeSpan(0, 0, 7) : new TimeSpan(0, 0, int.Parse(args[2])); // By default it should be in minutes
+            args.Length < 3 ? new TimeSpan(0, 1, 7) : new TimeSpan(0, int.Parse(args[2]), 0);
 
         List<string> log = new List<string>();
         DateTime start = DateTime.UtcNow, end = DateTime.UtcNow, monitoringFrequencyStart = DateTime.UtcNow;
         Process[] processesList = new Process[0];
         bool appRunning = true;
+        bool firstRun = true;
+        Console.WriteLine($"Starting to monitor process: {processName}");
         do
         {
             if (Console.KeyAvailable)
@@ -28,7 +31,7 @@ internal class Program
                 }
             }
 
-            if (monitoringFrequency <= (DateTime.UtcNow - monitoringFrequencyStart))
+            if (firstRun || monitoringFrequency <= (DateTime.UtcNow - monitoringFrequencyStart))
             {
                 processesList = Process.GetProcessesByName(processName);
                 if (processesList.Length == 0)
@@ -36,19 +39,32 @@ internal class Program
                 else
                     Console.WriteLine("run");
                 monitoringFrequencyStart = DateTime.UtcNow;
+                firstRun = false;
             }
 
             end = DateTime.UtcNow;
             TimeSpan monitorRunningTime = end - start;
             if (monitorRunningTime >= timeToKill && processesList.Length > 0)
             {
-                Process? runningProcess = processesList.FirstOrDefault(p => p.ProcessName == processName);
-                if (runningProcess != null)
+                Process[] runningProcesses = processesList.Where(p => p.ProcessName == processName).ToArray();
+                if(runningProcesses.Length > 0)
                 {
-                    Console.WriteLine($"Killing process: {runningProcess.ProcessName}");
-                    log.Add($"Process: {runningProcess.ProcessName} terminated at {DateTime.Now} Rest in Peace");
-                    runningProcess.Kill();
+                    Console.WriteLine($"Killing process: {processName}");
                 }
+
+                foreach (Process process in runningProcesses)
+                {
+                    try
+                    {
+                        process.Kill(true);
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine($"Exception occurred {ex.Message} and stack trace: {ex.StackTrace}");
+                    }
+                }
+                Console.WriteLine($"Process: {processName} terminated at {DateTime.Now} Rest in Peace");
+                log.Add($"Process: {processName} terminated at {DateTime.Now} Rest in Peace");
                 start = DateTime.UtcNow;
             }
         }
